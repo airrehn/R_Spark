@@ -54,7 +54,7 @@ print(confusion_matrix)
 # true +ve rate (TPR) = TP/(TP + FN)
 
 # precision = TP/(TP + FP)
-# recacll = TPR
+# recall = TPR
 
 
 

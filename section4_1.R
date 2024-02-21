@@ -1,3 +1,5 @@
+# GLM when response is either 0 or 1.
+
 library(glmx)
 data("BeetleMortality")
 class(BeetleMortality)
@@ -15,10 +17,29 @@ data("titanic_train")
 as_tibble(titanic_train)
 
 titanic_model = glm(Survived ~ Age + Sex, family = binomial(), titanic_train)
-# glm is generalised linear model
-# binomial because either 1 (alive) or 0 (dead). AKA logistic regression.
+# glm is Generalised Linear Model
+# binomial because response either 1 (alive) or 0 (dead). 
+# AKA logistic regression.
+
+# family = binomial("logit") is the same thing.
+
+
+
 summary(titanic_model)
 
+#' NOTE: using logistic regression model (glm, binomial above) 
+#' when we predict, it returns us a probability 0~1 instead of a 
+#' hard 0 or 1 prediction.
+#' This means we have to decide on a cut-off. e.g.
 
-# what if got more than 2 classes? Poisson distribution is good. 
-# For example response is an integer count of an event (skin cancer patients)
+#' library(modelr)
+#' df$prediction <- predict(line_model, type = "response")
+#' df <- df %>% mutate(pred = ifelse(prediction >= 0.5, 1, 0))
+
+########################################################################
+
+#' But what if got more than 2 classes? 
+#' We use Poisson Distribution.
+#' family = poisson(link = "log") 
+#' 
+#' For example Response is an integer count of an event (skin cancer patients)

@@ -2,9 +2,7 @@
 # But what about unsupervised learning? 
 # Without giving labels, can we cluster the flowers into groups?
 
-#Introducing PCA (Principal component analysis)
-
-#################################################
+#Introducing PCA (Principal component analysis) and K-means clustering.
 
 sc <- spark_connect(master = "local")
 
@@ -22,13 +20,19 @@ sub_table1 <- select(table1, -Species)
 sub_table1 <- na.omit(sub_table1)
 # clean NA values
 
-pca_model <- ml_pca(sub_table1)
 # build Principal Component model
+pca_model <- ml_pca(sub_table1)
+print(pca_model)
 
-# this is actually a Covariance Matrix (pca_model$pc).
+#' PC1 and 2 show the most variance, while PC3 and 4 show little variance.  
+#' This shows PC3 and 4 actually not so important in determining the 
+#' species of the flower.
+#' 
+#' Note: PCA is actually a preprocessing technique for Dimension Reduction to 
+#' reduce the number of features.
+
+# pca_model$pc is a Covariance Matrix
 # It shows relationship between different variables. 1 variable wrt to another.
-
-
 
 # We want to transform our original data D, into Principal Component matrix P.
 # we do this by matrix multiplying D by eigenvector of covariance matrix E (given by 
@@ -54,8 +58,8 @@ ggplot(PC, aes(PC1, PC2)) + geom_point(aes(color = Species))
 # versicolor and virginia not very good tho, can we do better?
 
 #############################################
-# K-means clustering
 
+# K-means clustering
 kmeans_model <- ml_kmeans(iris_tbl_link, formula = ~ Petal_Width + Petal_Length, k = 3)
 # the formula says that I want to cluster the points based on the 
 # Petal_Width and Petal_Length variables. 

@@ -1,4 +1,5 @@
-# what if now more than 2 classes (not count variable e.g. age, education yrs)
+# LDA for more than 2 classes (not count variable e.g. age, education yrs)
+
 library(MASS)
 data("iris")
 iris <- as.tibble(iris)
