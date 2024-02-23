@@ -100,8 +100,8 @@ ggplot(rates, aes(x = FPR, y = TPR)) + geom_point() +
 
 ' ROC curve code
 #'
-#' @param L y_actual (0 or 1).
-#' @param f, y_predicted/prob.
+#' @param L y_actual (e.g. 0 or 1).
+#' @param f, y_predicted_probability.
 #'
 #' @return points in ROC space and score
 
@@ -155,11 +155,12 @@ summary(line_model)
 library(modelr)
 df$prediction <- predict(line_model, type = "response")
 
-df <- df %>% mutate(pred = ifelse(prediction >= 0.5, 1, 0))
+# no need to define cut-off w/ this method 
+# df <- df %>% mutate(pred = ifelse(prediction >= 0.5, 1, 0))
 
 print(df)
 
-ROC  <- get_roc(L = df$y, f = df$pred)
+ROC  <- get_roc(L = df$y, f = df$prediction)
 
 ################################
 #' Lets add in some random bad predictions to see how that ROC would compare

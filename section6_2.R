@@ -1,5 +1,5 @@
-# sparklyr only has numeric variable type. So how do we deal with 
-# logical (boolean) or categorical data?
+# sparklyr only has Numeric (dbl) variable type. So how do we deal with 
+# Logical (boolean) or Categorical data?
 options(pillar.sigfig = 7)
 options(digits = 8)
 
@@ -31,8 +31,9 @@ shortLong_columnAdded
 ############################################
 # what if we want more Categories?
 
-new_table2 <- ft_bucketizer(flights_table, "distance", "distance_categories", 
-                            splits = c(0,500,1500,Inf))
+new_table2 <- ft_bucketizer(flights_table, "distance", "distance_cats", 
+                            splits = c(0,500,1500,Inf)) %>% 
+  mutate(distance_cats = as.character(as.integer(distance_cats)))
 
 #ft_bucketzer takes in a table, a var (column) u want to convert to categories, 
 #the name of the new column, and the buckets of the categories.
@@ -41,9 +42,10 @@ new_table2 <- ft_bucketizer(flights_table, "distance", "distance_categories",
 #      501-1500 -> 1
 #      >1500 -> 2
 
-sub_table2 <- select(new_table2, distance, distance_categories)
+sub_table2 <- select(new_table2, distance, distance_cats)
 
 categories_column_added <- collect(sub_table2)
+print(categories_column_added)
 
 
 

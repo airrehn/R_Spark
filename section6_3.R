@@ -61,7 +61,7 @@ ggplot(PC, aes(PC1, PC2)) + geom_point(aes(color = Species))
 
 # K-means clustering
 kmeans_model <- ml_kmeans(iris_tbl_link, formula = ~ Petal_Width + Petal_Length, k = 3)
-# the formula says that I want to cluster the points based on the 
+# the formula says that I want to cluster based on the 
 # Petal_Width and Petal_Length variables. 
 
 # (these variables will be used to iteratively compute the means and 
