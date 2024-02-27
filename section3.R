@@ -7,7 +7,7 @@ library(tidyr)
 library(tidyverse)
 library(broom)
 ggplot(gapminder, aes(year, lifeExp, group = country)) + geom_line(alpha = 0.25)
-#groupby achieved wtih group.
+#groupby achieved with group.
 
 au <- filter(gapminder, country == "Australia")
 # easy filter of gapminder data on country column.
@@ -43,7 +43,8 @@ summariseddf$line_model[1]
 summariseddf$second_col[1]
 # u notice that the second_column column gives more data, like the pvalue.
 
-# finally we can unnest this.
+# finally we can unnest the second_column. Basically explodes the 2 x 5 tibble there and gives
+# each (of the 2) row, a row of it's own on the outer table.
 finaldf <- unnest(summariseddf, second_col)
 finaldf
                         
