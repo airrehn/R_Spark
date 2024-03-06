@@ -50,6 +50,7 @@ meanMSE_forEachSet_1 <- summarise(aggregated_df1, MSE = mean((hwy-pred_hwy)^2))
 # for each group, calclate the mean MSE, store into a new column named "MSE". 
 # This is in a new df, returns this new df.
 
+meanMSE_forEachSet_1
 
 ####################
 # cool now we can do the same for the other model we wanted to test, hwy ~ displ + drv.
